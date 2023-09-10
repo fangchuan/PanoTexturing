@@ -20,8 +20,8 @@
 
 #define OBJ_INDEX_OFFSET 1
 
-void
-ObjModel::save(ObjModel const & model, std::string const & prefix) {
+namespace tex {
+void ObjModel::save(ObjModel const & model, std::string const & prefix) {
     model.save_to_files(prefix);
 }
 
@@ -69,3 +69,4 @@ ObjModel::save_to_files(std::string const & prefix) const {
     }
     out.close();
 }
+}  // namespace tex

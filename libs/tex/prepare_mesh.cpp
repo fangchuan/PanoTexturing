@@ -63,7 +63,8 @@ prepare_mesh(mve::MeshInfo * mesh_info, mve::TriangleMesh::Ptr mesh) {
 
     /* Ensure face and vertex normals. */
     mesh->ensure_normals(true, true);
-
+    std::cout << "prepare_mesh: face normals size: " << mesh->get_face_normals().size() << std::endl;
+    std::cout << "prepare_mesh: vertex normals size: " << mesh->get_vertex_normals().size() << std::endl;
     /* Update vertex infos. */
     mesh_info->clear();
     mesh_info->initialize(mesh);

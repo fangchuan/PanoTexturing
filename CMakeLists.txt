@@ -36,6 +36,15 @@ find_package(PNG REQUIRED)
 find_package(JPEG REQUIRED)
 find_package(TIFF REQUIRED)
 
+# opencv
+find_package(OpenCV REQUIRED)
+include_directories(${OpenCV_INCLUDE_DIRS})
+MESSAGE(STATUS "OpenCV version is " ${OpenCV_VERSION})
+
+# find glog
+find_package(glog REQUIRED)
+include_directories(${GLOG_INCLUDE_DIRS})
+
 add_subdirectory(elibs)
 include_directories(SYSTEM
     ${CMAKE_SOURCE_DIR}/elibs/rayint/libs
