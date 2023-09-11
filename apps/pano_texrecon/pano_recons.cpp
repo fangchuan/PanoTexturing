@@ -3,29 +3,23 @@
 
 #include "pano_recons.h"
 
+#include <mve/mesh_io_ply.h>
 #include <open3d/geometry/BoundingVolume.h>
 #include <open3d/io/PointCloudIO.h>
 #include <open3d/io/TriangleMeshIO.h>
 #include <open3d/pipelines/registration/ColoredICP.h>
-// #include <util/alignment.h>
 
 #include <opencv2/core/core.hpp>
 #include <opencv2/imgcodecs.hpp>
 #include <opencv2/imgproc.hpp>
 
 #include "cubemap.h"
-// #include "floor_plan/grid_map.h"
 #include "log.h"
-// #include "mesh/pcl_utils.h"
-#include "utils.h"
-// #include "mobile/depth_estimation/layout_depth.h"
-// #include "mobile/utils.h"
 #include "mve/mesh_info.h"
 #include "open3d/core/EigenConverter.h"
-// #include "open3d/t/geometry/RaycastingScene.h"
-#include <mve/mesh_io_ply.h>
-#include "util/timer.h"
 #include "tex/texturing.h"
+#include "util/timer.h"
+#include "utils.h"
 
 namespace lyj {
 
@@ -34,10 +28,6 @@ PanoRecons::PanoRecons(const PanoReconsOptions &options,
     : options_(options) {
   input_pano_filepath_ = input_pano_filepath;
 
-  // options_.output_dir = input_pano_filepath.find_last_of('/') == -1
-  //                           ? "."
-  //                           : input_pano_filepath.substr(
-  //                                 0, input_pano_filepath.find_last_of('/'));
   settings_.keep_unseen_faces = true;
   settings_.tone_mapping = tex::ToneMapping::TONE_MAPPING_GAMMA;
   settings_.data_term = tex::DataTerm::DATA_TERM_AREA;
@@ -46,16 +36,12 @@ PanoRecons::PanoRecons(const PanoReconsOptions &options,
 }
 
 bool PanoRecons::Build() {
-  // input mesh
-  // options_.obj_filepath = options_.output_dir + "/mesh.obj";
   assert(!input_pano_filepath_.empty());
   assert(options_.obj_filepath.empty());
 
   if (!options_.obj_filepath.empty()) {
     if (!IsFileExist(options_.obj_filepath)) {
       AWARN << "Can not Find " << options_.obj_filepath << std::endl;
-      // EditErrorMessage(ERR_NO_FILE, "Can not Find " + options_.obj_filepath,
-      //                  msg);
       return false;
     }
     AINFO << "Find " << options_.obj_filepath << "  ..." << std::endl;
@@ -71,19 +57,12 @@ bool PanoRecons::TextureRemapping() {
   AINFO << "Reading " << options_.obj_filepath << "  ..." << std::endl;
 
   open3d::io::ReadTriangleMeshOptions read_triangle_mesh_options;
-  open3d::io::ReadTriangleMeshFromOBJ(options_.obj_filepath, mesh, read_triangle_mesh_options);
-  // open3d::io::ReadTriangleMeshFromPLY(options_.obj_filepath, mesh, read_triangle_mesh_options);
-  // mesh.ComputeVertexNormals(true);
-  // mesh.ComputeTriangleNormals(true);
+  open3d::io::ReadTriangleMeshFromPLY(options_.obj_filepath, mesh,
+                                      read_triangle_mesh_options);
 
   MeshRoomInfo room_info;
   room_info.camera_height = 0.0;
   mesh_rooms_info_.emplace_back(room_info);
-
-  // double camera_height = mesh_rooms_info_[0].camera_height;
-  // for (int i = 0; i < mesh.vertices_.size(); ++i) {
-  //   mesh.vertices_[i][1] = mesh.vertices_[i][1] + camera_height;
-  // }
 
   // 使用修模后的模型
   mesh_rooms_info_[0].mesh_3d = mesh;
@@ -125,7 +104,6 @@ mve::TriangleMesh::Ptr PanoRecons::ConvertOpen3DMeshToMVEMesh(
     vertex[1] = open3d_mesh.vertices_[i](1);
     vertex[2] = open3d_mesh.vertices_[i](2);
     vertices.emplace_back(vertex);
-
   }
 
   for (int i = 0; i < open3d_mesh.triangles_.size(); ++i) {
@@ -186,8 +164,6 @@ void PanoRecons::WholeBuildingTextureMapping(const cv::Mat &input_pano) {
 
   if (options_.whole_building_unseen_fill) {
     for (int i = 0; i < 1; ++i) {
-      // const cv::Mat main_pano =
-      // database_->GetPano(room.GetShot(j).GetName()).GetImage();
       cv::Mat blur_pano;
       cv::GaussianBlur(input_pano, blur_pano, cv::Size(15, 15), 15, 15, 4);
       // Eigen::Matrix4d T = room.GetShot(j).GetT().inverse();
