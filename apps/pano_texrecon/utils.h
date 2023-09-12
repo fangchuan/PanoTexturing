@@ -174,8 +174,8 @@ inline void AddTextureViewsFromPano(const cv::Mat &pano,
     camera_info.trans[1] = update_trans(1);
     camera_info.trans[2] = update_trans(2);
 
-    std::cout << " camera_" << i << ": \n";
-    camera_info.debug_print();
+    // std::cout << " camera_" << i << ": \n";
+    // camera_info.debug_print();
     tex::TextureView texture_view(texture_views.size(), camera_info,
                                   texture_image[i]);
     if (i == 1 && bottom_mask_flag) {
