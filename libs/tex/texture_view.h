@@ -146,37 +146,43 @@ inline math::Vec3f TextureView::get_viewing_direction(void) const {
   return viewdir;
 }
 
-inline int TextureView::get_width(void) const { return width; }
-
-inline int TextureView::get_height(void) const { return height; }
-
-inline mve::ByteImage::Ptr TextureView::get_image(void) const {
-  assert(image != NULL);
-  return image;
+inline int
+TextureView::get_width(void) const {
+    return width;
 }
 
-inline bool TextureView::inside(math::Vec3f const &v1, math::Vec3f const &v2,
-                                math::Vec3f const &v3) const {
-  math::Vec2f p1 = get_pixel_coords(v1);
-  math::Vec2f p2 = get_pixel_coords(v2);
-  math::Vec2f p3 = get_pixel_coords(v3);
-  return valid_pixel(p1) && valid_pixel(p2) && valid_pixel(p3);
+inline int
+TextureView::get_height(void) const {
+    return height;
 }
 
-inline math::Vec2f TextureView::get_pixel_coords(
-    math::Vec3f const &vertex) const {
-  math::Vec3f pixel = projection * world_to_cam.mult(vertex, 1.0f);
-  pixel /= pixel[2];
-  return math::Vec2f(pixel[0] - 0.5f, pixel[1] - 0.5f);
+inline mve::ByteImage::Ptr
+TextureView::get_image(void) const {
+    assert(image != NULL);
+    return image;
 }
 
-inline math::Vec2f TextureView::get_pano_pixel_coords(
-    math::Vec3f const &vertex) const {
+inline bool
+TextureView::inside(math::Vec3f const & v1, math::Vec3f const & v2, math::Vec3f const & v3) const {
+    math::Vec2f p1 = get_pixel_coords(v1);
+    math::Vec2f p2 = get_pixel_coords(v2);
+    math::Vec2f p3 = get_pixel_coords(v3);
+    return valid_pixel(p1) && valid_pixel(p2) && valid_pixel(p3);
+}
+
+inline math::Vec2f
+TextureView::get_pixel_coords(math::Vec3f const & vertex) const {
+    math::Vec3f pixel = projection * world_to_cam.mult(vertex, 1.0f);
+    pixel /= pixel[2];
+    return math::Vec2f(pixel[0] - 0.5f, pixel[1] - 0.5f);
+}
+
+inline math::Vec2f
+TextureView::get_pano_pixel_coords(math::Vec3f const & vertex) const {
+
   auto trans_vert = world_to_cam.mult(vertex, 1.0f);
 
-  double longitude = std::atan2(
-      trans_vert[1],
-      sqrt(trans_vert[0] * trans_vert[0] + trans_vert[2] * trans_vert[2]));
+  double longitude = std::atan2(trans_vert[1], sqrt(trans_vert[0] * trans_vert[0] + trans_vert[2] * trans_vert[2]));
   double latitude = std::atan2(trans_vert[0], -trans_vert[2]);
   double u = (latitude / (2 * M_PI) + 0.5);
   double v = (0.5 - longitude / M_PI);
@@ -186,37 +192,41 @@ inline math::Vec2f TextureView::get_pano_pixel_coords(
   return out_coords;
 }
 
-inline math::Vec3f TextureView::get_pixel_values(
-    math::Vec3f const &vertex) const {
-  math::Vec2f pixel = get_pixel_coords(vertex);
-  return get_pixel_values(pixel);
+inline math::Vec3f
+TextureView::get_pixel_values(math::Vec3f const & vertex) const {
+    math::Vec2f pixel = get_pixel_coords(vertex);
+    return get_pixel_values(pixel);
 }
 
-inline math::Vec3f TextureView::get_pixel_values(
-    math::Vec2f const &pixel) const {
-  assert(image != NULL);
-  math::Vec3uc values;
-  image->linear_at(pixel[0], pixel[1], *values);
-  return math::Vec3f(values) / 255.0f;
+inline math::Vec3f
+TextureView::get_pixel_values(math::Vec2f const & pixel) const {
+    assert(image != NULL);
+    math::Vec3uc values;
+    image->linear_at(pixel[0], pixel[1], *values);
+    return math::Vec3f(values) / 255.0f;
 }
 
-inline void TextureView::bind_image(mve::ByteImage::Ptr new_image) {
-  image = new_image;
+inline void
+TextureView::bind_image(mve::ByteImage::Ptr new_image) {
+    image = new_image;
 }
 
-inline void TextureView::release_validity_mask(void) {
-  assert(validity_mask.size() == static_cast<std::size_t>(width * height));
-  validity_mask = std::vector<bool>();
+inline void
+TextureView::release_validity_mask(void) {
+    assert(validity_mask.size() == static_cast<std::size_t>(width * height));
+    validity_mask = std::vector<bool>();
 }
 
-inline void TextureView::release_gradient_magnitude(void) {
-  assert(gradient_magnitude != NULL);
-  gradient_magnitude.reset();
+inline void
+TextureView::release_gradient_magnitude(void) {
+    assert(gradient_magnitude != NULL);
+    gradient_magnitude.reset();
 }
 
-inline void TextureView::release_image(void) {
-  assert(image != NULL);
-  image.reset();
+inline void
+TextureView::release_image(void) {
+    assert(image != NULL);
+    image.reset();
 }
 
 TEX_NAMESPACE_END
