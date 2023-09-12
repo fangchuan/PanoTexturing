@@ -267,22 +267,16 @@ void TextureView::get_face_info(math::Vec3f const &v1, math::Vec3f const &v2,
     }
   }
 
-  if (settings.data_term == DATA_TERM_GMI) {
-    if (num_samples > 0) {
-      gmi = (gmi / num_samples) * area;
-    } else {
-      double gmv1 =
-          static_cast<double>(gradient_magnitude->linear_at(p1[0], p1[1], 0)) /
-          255.0;
-      double gmv2 =
-          static_cast<double>(gradient_magnitude->linear_at(p2[0], p2[1], 0)) /
-          255.0;
-      double gmv3 =
-          static_cast<double>(gradient_magnitude->linear_at(p3[0], p3[1], 0)) /
-          255.0;
-      gmi = ((gmv1 + gmv2 + gmv3) / 3.0) * area;
+    if (settings.data_term == DATA_TERM_GMI) {
+        if (num_samples > 0) {
+            gmi = (gmi / num_samples) * area;
+        } else {
+            double gmv1 = static_cast<double>(gradient_magnitude->linear_at(p1[0], p1[1], 0)) / 255.0;
+            double gmv2 = static_cast<double>(gradient_magnitude->linear_at(p2[0], p2[1], 0)) / 255.0;
+            double gmv3 = static_cast<double>(gradient_magnitude->linear_at(p3[0], p3[1], 0)) / 255.0;
+            gmi = ((gmv1 + gmv2 + gmv3) / 3.0) * area;
+        }
     }
-  }
 
   if (settings.outlier_removal != OUTLIER_REMOVAL_NONE) {
     if (num_samples > 0) {
