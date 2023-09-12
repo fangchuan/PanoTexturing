@@ -29,7 +29,7 @@ class RectangularBin {
     private:
         unsigned int width;
         unsigned int height;
-        std::list<Rect<int> > rects;
+        std::list<mvs_texturing::Rect<int> > rects;
 
     public:
         /**
@@ -40,7 +40,7 @@ class RectangularBin {
         static RectangularBin::Ptr create(unsigned int width, unsigned int height);
 
         /** Returns true and changes the position of the given rect if it fits into the bin. */
-        bool insert(Rect<int> * rect);
+        bool insert(mvs_texturing::Rect<int> * rect);
 };
 
 inline RectangularBin::Ptr

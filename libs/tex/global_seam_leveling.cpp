@@ -146,7 +146,7 @@ global_seam_leveling(UniGraph const & graph, mve::TriangleMesh::ConstPtr mesh,
     mve::TriangleMesh::VertexList const & vertices = mesh->get_vertices();
     std::size_t const num_vertices = vertices.size();
 
-    std::cout << "\tCreate matrices for optimization... " << std::flush;
+//    std::cout << "\tCreate matrices for optimization... " << std::flush;
     std::vector<std::map<std::size_t, std::size_t> > vertlabel2row;
     vertlabel2row.resize(num_vertices);
 
@@ -249,11 +249,11 @@ global_seam_leveling(UniGraph const & graph, mve::TriangleMesh::ConstPtr mesh,
         }); // value != 0.0f is only to suppress a compiler warning
 
     std::vector<std::map<std::size_t, math::Vec3f> > adjust_values(num_vertices);
-    std::cout << " done." << std::endl;
-    std::cout << "\tLhs dimensionality: " << Lhs.rows() << " x " << Lhs.cols() << std::endl;
+//    std::cout << " done." << std::endl;
+//    std::cout << "\tLhs dimensionality: " << Lhs.rows() << " x " << Lhs.cols() << std::endl;
 
     util::WallTimer timer;
-    std::cout << "\tCalculating adjustments:"<< std::endl;
+//    std::cout << "\tCalculating adjustments:"<< std::endl;
     #pragma omp parallel for
     for (std::size_t channel = 0; channel < 3; ++channel) {
         /* Prepare solver. */
@@ -275,10 +275,8 @@ global_seam_leveling(UniGraph const & graph, mve::TriangleMesh::ConstPtr mesh,
 
         /* Subtract mean because system is underconstrained and we seek the solution with minimal adjustments. */
         x = x.array() - x.mean();
-
-        #pragma omp critical
-        std::cout << "\t\tColor channel " << channel << ": CG took "
-            << cg.iterations() << " iterations. Residual is " << cg.error() << std::endl;
+//        std::cout << "\t\tColor channel " << channel << ": CG took "
+//            << cg.iterations() << " iterations. Residual is " << cg.error() << std::endl;
 
         #pragma omp critical
         for (std::size_t i = 0; i < num_vertices; ++i) {
@@ -288,7 +286,7 @@ global_seam_leveling(UniGraph const & graph, mve::TriangleMesh::ConstPtr mesh,
             }
         }
     }
-    std::cout << "\t\tTook " << timer.get_elapsed_sec() << " seconds" << std::endl;
+//    std::cout << "\t\tTook " << timer.get_elapsed_sec() << " seconds" << std::endl;
 
     mve::TriangleMesh::FaceList const & mesh_faces = mesh->get_faces();
 

@@ -10,7 +10,7 @@
 #include <set>
 #include <map>
 
-#include <util/file_system.h>
+#include <mve_util/file_system.h>
 #include <mve/image_tools.h>
 #include <mve/image_io.h>
 
@@ -64,7 +64,7 @@ TextureAtlas::insert(TexturePatch::ConstPtr texture_patch) {
 
     int const width = texture_patch->get_width() + 2 * padding;
     int const height = texture_patch->get_height() + 2 * padding;
-    Rect<int> rect(0, 0, width, height);
+    mvs_texturing::Rect<int> rect(0, 0, width, height);
     if (!bin->insert(&rect)) return false;
 
     /* Update texture atlas and its validity mask. */

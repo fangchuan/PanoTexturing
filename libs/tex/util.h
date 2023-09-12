@@ -19,8 +19,8 @@
 
 #include <Eigen/Core>
 
-#include "util/exception.h"
-#include "util/file_system.h"
+#include "mve_util/exception.h"
+#include "mve_util/file_system.h"
 
 #include "math/vector.h"
 #include "math/matrix.h"

@@ -49,7 +49,7 @@ build_adjacency_graph(mve::TriangleMesh::ConstPtr mesh,
         face_counter.inc();
     }
 
-    std::cout << "\t" << graph->num_edges() << " total edges." << std::endl;
+//    std::cout << "\t" << graph->num_edges() << " total edges." << std::endl;
 }
 
 TEX_NAMESPACE_END

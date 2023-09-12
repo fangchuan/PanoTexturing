@@ -13,16 +13,16 @@
 
 RectangularBin::RectangularBin(unsigned int width, unsigned int height)
     : width(width), height(height) {
-    rects.push_back(Rect<int>(0, 0, width, height));
+    rects.push_back(mvs_texturing::Rect<int>(0, 0, width, height));
 }
 
-bool RectangularBin::insert(Rect<int> * rect) {
+bool RectangularBin::insert(mvs_texturing::Rect<int> * rect) {
     /* The best score is 0 so we initialize with the worst. */
     unsigned int best_score = width * height;
-    std::list<Rect<int> >::iterator best_rect_it = rects.end();
-    std::list<Rect<int> >::iterator it = rects.begin();
+    std::list<mvs_texturing::Rect<int> >::iterator best_rect_it = rects.end();
+    std::list<mvs_texturing::Rect<int> >::iterator it = rects.begin();
     for (; it != rects.end(); ++it) {
-        Rect<int> free_rect = *it;
+        mvs_texturing::Rect<int> free_rect = *it;
         if (rect->width() <= free_rect.width()
             && rect->height() <= free_rect.height() ) {
             unsigned int score = free_rect.size() - rect->size();
@@ -35,17 +35,17 @@ bool RectangularBin::insert(Rect<int> * rect) {
 
     /* Fits? */
     if (best_rect_it != rects.end()) {
-        Rect<int> best_rect(&(*best_rect_it));
+        mvs_texturing::Rect<int> best_rect(&(*best_rect_it));
         rects.erase(best_rect_it);
 
         /* Update the rect. */
         rect->move(best_rect.min_x, best_rect.min_y);
 
         /* Decide split axis. */
-        Rect<int> hsplit_top(best_rect.min_x, rect->max_y, best_rect.max_x, best_rect.max_y);
-        Rect<int> hsplit_bottom(rect->max_x, best_rect.min_y, best_rect.max_x, rect->max_y);
-        Rect<int> vsplit_left(best_rect.min_x, rect->max_y, rect->max_x, best_rect.max_y);
-        Rect<int> vsplit_right(rect->max_x, best_rect.min_y, best_rect.max_x, best_rect.max_y);
+        mvs_texturing::Rect<int> hsplit_top(best_rect.min_x, rect->max_y, best_rect.max_x, best_rect.max_y);
+        mvs_texturing::Rect<int> hsplit_bottom(rect->max_x, best_rect.min_y, best_rect.max_x, rect->max_y);
+        mvs_texturing::Rect<int> vsplit_left(best_rect.min_x, rect->max_y, rect->max_x, best_rect.max_y);
+        mvs_texturing::Rect<int> vsplit_right(rect->max_x, best_rect.min_y, best_rect.max_x, best_rect.max_y);
 
         float hsplit_ratio = 1.0f;
         float vsplit_ratio = 1.0f;

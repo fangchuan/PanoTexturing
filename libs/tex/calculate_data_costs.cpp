@@ -140,9 +140,9 @@ calculate_face_projection_infos(mve::TriangleMesh::ConstPtr mesh,
     std::size_t const num_views = texture_views->size();
 
     util::WallTimer timer;
-    std::cout << "\tBuilding BVH from " << faces.size() / 3 << " faces... " << std::flush;
+//    std::cout << "\tBuilding BVH from " << faces.size() / 3 << " faces... " << std::flush;
     BVHTree bvh_tree(faces, vertices);
-    std::cout << "done. (Took: " << timer.get_elapsed() << " ms)" << std::endl;
+//    std::cout << "done. (Took: " << timer.get_elapsed() << " ms)" << std::endl;
 
     ProgressCounter view_counter("\tCalculating face qualities", num_views);
     #pragma omp parallel
@@ -184,8 +184,8 @@ calculate_face_projection_infos(mve::TriangleMesh::ConstPtr mesh,
                 if (viewing_angle < 0.0f || viewing_direction.dot(view_to_face_vec) < 0.0f)
                     continue;
 
-                if (std::acos(viewing_angle) > MATH_DEG2RAD(75.0f))
-                    continue;
+//                if (std::acos(viewing_angle) > MATH_DEG2RAD(75.0f))
+//                    continue;
 
                 /* Projects into the valid part of the TextureView? */
                 if (!texture_view->inside(v1, v2, v3))
@@ -301,8 +301,8 @@ postprocess_face_infos(Settings const & settings,
         face_projection_infos->at(i) = std::vector<FaceProjectionInfo>();
     }
 
-    std::cout << "\tMaximum quality of a face within an image: " << max_quality << std::endl;
-    std::cout << "\tClamping qualities to " << percentile << " within normalization." << std::endl;
+//    std::cout << "\tMaximum quality of a face within an image: " << max_quality << std::endl;
+//    std::cout << "\tClamping qualities to " << percentile << " within normalization." << std::endl;
 }
 
 void

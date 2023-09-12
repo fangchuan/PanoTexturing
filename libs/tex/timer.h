@@ -17,8 +17,8 @@
 #include <cerrno>
 #include <cstring>
 
-#include "util/timer.h"
-#include "util/exception.h"
+#include "mve_util/timer.h"
+#include "mve_util/exception.h"
 
 class Timer {
     private:

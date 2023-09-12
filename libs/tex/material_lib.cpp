@@ -11,20 +11,20 @@
 #include <cstring>
 #include <cerrno>
 
-#include <util/exception.h>
-#include <util/file_system.h>
+#include <mve_util/exception.h>
+#include <mve_util/file_system.h>
 #include <mve/image_io.h>
 
 #include "material_lib.h"
 
 void
 MaterialLib::save_to_files(std::string const & prefix) const {
-    std::string filename = prefix + ".mtl";
-    std::ofstream out(filename.c_str());
-    if (!out.good())
-        throw util::FileException(filename, std::strerror(errno));
+  std::string filename = prefix + ".mtl";
+  std::ofstream out(filename.c_str());
+  if (!out.good())
+    throw util::FileException(filename, std::strerror(errno));
 
-    std::string const name = util::fs::basename(prefix);
+  std::string const name = util::fs::basename(prefix);
 
   for (Material const & material : *this) {
     std::string diffuse_map_postfix = "_" + material.name + "_map_Kd.png";
@@ -39,8 +39,8 @@ MaterialLib::save_to_files(std::string const & prefix) const {
   }
   out.close();
 
-    for (Material const & material : *this) {
-        std::string filename = prefix + "_" + material.name + "_map_Kd.png";
-        mve::image::save_png_file(material.diffuse_map, filename);
-    }
+  for (Material const & material : *this) {
+    std::string filename = prefix + "_" + material.name + "_map_Kd.png";
+    mve::image::save_png_file(material.diffuse_map, filename);
+  }
 }

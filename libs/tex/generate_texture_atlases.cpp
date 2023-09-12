@@ -12,7 +12,7 @@
 #include <iostream>
 #include <fstream>
 
-#include <util/timer.h>
+#include "mve_util/timer.h"
 #include <mve/image_tools.h>
 
 #include "defines.h"

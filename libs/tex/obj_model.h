@@ -12,7 +12,6 @@
 
 #include "material_lib.h"
 
-namespace tex {
 /**
   * Class representing a obj model.
   */
@@ -83,5 +82,5 @@ ObjModel::Groups &
 ObjModel::get_groups(void) {
     return groups;
 }
-}
+
 #endif /* TEX_OBJMODEL_HEADER */

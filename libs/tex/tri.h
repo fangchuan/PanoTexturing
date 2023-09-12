@@ -24,7 +24,7 @@ class Tri {
         math::Vec2f v3;
         float detT;
 
-        Rect<float> aabb;
+        mvs_texturing::Rect<float> aabb;
     public:
         /** Constructor which calculates the axis aligned bounding box and prepares the calculation of barycentric coordinates. */
         Tri(math::Vec2f v1, math::Vec2f v2, math::Vec2f v3);
@@ -39,10 +39,10 @@ class Tri {
         float get_area(void) const;
 
         /** Returns the axis aligned bounding box. */
-        Rect<float> get_aabb(void) const;
+        mvs_texturing::Rect<float> get_aabb(void) const;
 };
 
-inline Rect<float>
+inline mvs_texturing::Rect<float>
 Tri::get_aabb(void) const {
     return aabb;
 }

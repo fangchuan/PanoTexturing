@@ -12,6 +12,8 @@
 
 #include <cassert>
 
+namespace mvs_texturing{
+
 /**
   * Simple class representing a rectangle.
   */
@@ -107,6 +109,8 @@ template <typename T>
 inline void
 Rect<T>::move(T x, T y) {
     update(x, y, x + width(), y + height());
+}
+
 }
 
 #endif /* TEX_RECT_HEADER */

@@ -55,7 +55,7 @@ TexturePatch::adjust_colors(std::vector<math::Vec3f> const & adjust_values) {
         float area = tri.get_area();
         if (area < std::numeric_limits<float>::epsilon()) continue;
 
-        Rect<float> aabb = tri.get_aabb();
+        mvs_texturing::Rect<float> aabb = tri.get_aabb();
         int const min_x = static_cast<int>(std::floor(aabb.min_x)) - texture_patch_border;
         int const min_y = static_cast<int>(std::floor(aabb.min_y)) - texture_patch_border;
         int const max_x = static_cast<int>(std::ceil(aabb.max_x)) + texture_patch_border;

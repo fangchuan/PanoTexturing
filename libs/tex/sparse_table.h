@@ -17,8 +17,8 @@
 #include <cerrno>
 #include <iostream>
 
-#include "util/file_system.h"
-#include "util/exception.h"
+#include "mve_util/file_system.h"
+#include "mve_util/exception.h"
 
 #define TEX_SPARSE_TABLE_HEADER "SPT"
 #define TEX_SPARSE_TABLE_VERSION "0.2"
