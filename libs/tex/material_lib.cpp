@@ -11,8 +11,8 @@
 #include <cstring>
 #include <cerrno>
 
-#include <mve_util/exception.h>
-#include <mve_util/file_system.h>
+#include <util/exception.h>
+#include <util/file_system.h>
 #include <mve/image_io.h>
 
 #include "material_lib.h"

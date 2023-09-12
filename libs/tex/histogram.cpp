@@ -14,8 +14,8 @@
 #include <cerrno>
 #include <cmath>
 
-#include <mve_util/file_system.h>
-#include <mve_util/exception.h>
+#include <util/file_system.h>
+#include <util/exception.h>
 
 #include "histogram.h"
 

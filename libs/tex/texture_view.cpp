@@ -12,7 +12,7 @@
 #include <math/matrix.h>
 #include <mve/image_io.h>
 #include <mve/image_tools.h>
-#include <mve_util/file_system.h>
+#include <util/file_system.h>
 
 #include "texture_view.h"
 

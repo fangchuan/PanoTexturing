@@ -7,8 +7,8 @@
  * of the BSD 3-Clause license. See the LICENSE.txt file for details.
  */
 
-#include <mve_util/timer.h>
-#include <mve_util/tokenizer.h>
+#include <util/timer.h>
+#include <util/tokenizer.h>
 #include <mve/image_io.h>
 #include <mve/image_tools.h>
 #include <mve/bundle_io.h>

@@ -13,7 +13,7 @@
 
 #include <vector>
 
-#include <mve_util/exception.h>
+#include <util/exception.h>
 #include <math/vector.h>
 #include <mve/mesh.h>
 #include <mve/image.h>

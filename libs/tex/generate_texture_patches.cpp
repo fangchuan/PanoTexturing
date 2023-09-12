@@ -17,7 +17,7 @@
 #include <algorithm>
 
 #include "texturing.h"
-#include "mve_util/timer.h"
+#include "util/timer.h"
 
 TEX_NAMESPACE_BEGIN
 

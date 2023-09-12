@@ -13,8 +13,8 @@
 #include <cerrno>
 
 #include <mve/mesh.h>
-#include <mve_util/exception.h>
-#include <mve_util/file_system.h>
+#include <util/exception.h>
+#include <util/file_system.h>
 
 #include "obj_model.h"
 

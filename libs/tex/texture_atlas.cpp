@@ -10,7 +10,7 @@
 #include <set>
 #include <map>
 
-#include <mve_util/file_system.h>
+#include <util/file_system.h>
 #include <mve/image_tools.h>
 #include <mve/image_io.h>
 
