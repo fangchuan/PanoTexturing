@@ -113,17 +113,17 @@ inline void AddTextureViewsFromPano(const cv::Mat &pano,
   std::vector<cv::Mat> texture_image;
   texture_image.resize(6);
   texture_image[2] = RotateImage(cubemap.Top(), -90);
-  cv::imwrite("top.jpg", texture_image[2]);
+  // cv::imwrite("top.jpg", texture_image[2]);
   texture_image[1] = RotateImage(cubemap.Bottom(), 90);
-  cv::imwrite("bottom.jpg", texture_image[1]);
+  // cv::imwrite("bottom.jpg", texture_image[1]);
   texture_image[0] = FlipX(FlipY(cubemap.Back()));
-  cv::imwrite("back.jpg", texture_image[0]);
+  // cv::imwrite("back.jpg", texture_image[0]);
   texture_image[3] = FlipX(FlipY(cubemap.Front()));
-  cv::imwrite("front.jpg", texture_image[3]);
+  // cv::imwrite("front.jpg", texture_image[3]);
   texture_image[5] = FlipX(FlipY(cubemap.Right()));
-  cv::imwrite("right.jpg", texture_image[5]);
+  // cv::imwrite("right.jpg", texture_image[5]);
   texture_image[4] = FlipX(FlipY(cubemap.Left()));
-  cv::imwrite("left.jpg", texture_image[4]);
+  // cv::imwrite("left.jpg", texture_image[4]);
 
   // 底部mask
   cv::Mat bottom_mask = cv::Mat::zeros(texture_image[1].size(), CV_8UC1);
@@ -146,8 +146,9 @@ inline void AddTextureViewsFromPano(const cv::Mat &pano,
 
   // const auto T = shot.GetT();
   Eigen::Matrix4d T = Eigen::Matrix4d::Identity();
-  // T.block<3,3>(0,0) = Eigen::Quaterniond(0.7071067811865476, 0.0,-0.7071067811865475,0.0).toRotationMatrix();
-  T.block<3,1>(0,3) = Eigen::Vector3d(0,1.6,0);
+  // T.block<3,3>(0,0) = Eigen::Quaterniond(0.7071067811865476,
+  // 0.0,-0.7071067811865475,0.0).toRotationMatrix();
+  T.block<3, 1>(0, 3) = Eigen::Vector3d(0, 1.6, 0);
   auto T_r = T.block<3, 3>(0, 0);
   Eigen::Vector3d T_t = Eigen::Vector3d(T(0, 3), T(1, 3), T(2, 3));
 
@@ -173,7 +174,7 @@ inline void AddTextureViewsFromPano(const cv::Mat &pano,
     camera_info.trans[1] = update_trans(1);
     camera_info.trans[2] = update_trans(2);
 
-    std::cout <<" camera_" << i << ": \n";
+    std::cout << " camera_" << i << ": \n";
     camera_info.debug_print();
     tex::TextureView texture_view(texture_views.size(), camera_info,
                                   texture_image[i]);

@@ -10,9 +10,6 @@
 
 #include <opencv2/core/core.hpp>
 
-// #include "base/database.h"
-// #include "floor_plan/base.h"
-// #include "mobile/depth_estimation/merge_depth.h"
 #include "mve/mesh.h"
 #include "tex/texturing.h"
 
@@ -34,8 +31,6 @@ struct MeshRoomInfo {
 };
 
 struct PanoReconsOptions {
-  // // input panorama file path
-  // std::string input_pano_img_path;
   // output path
   std::string output_dir;
 
@@ -105,7 +100,6 @@ class PanoRecons {
 
   void SaveBuildingTextureMesh(const mve::TriangleMesh::Ptr &mesh,
                                tex::TexturePatches &texture_patches);
-
 
   void Transform2WorldSpace(
       std::vector<Eigen::Vector3d, Eigen::aligned_allocator<Eigen::Vector3d>>
